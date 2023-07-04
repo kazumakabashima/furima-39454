@@ -2,7 +2,7 @@
 
 ## DB設計
 ---
-## users Tabel
+## users table
 
 | Column             | Type    | Options                   |
 | ------------------ | ------- | ------------------------- |
@@ -22,7 +22,7 @@ has_many: items
 has_many: orders
 
 ---
-## items Table
+## items table
 
 | Column          | Type       | Options                        |
 | --------------- | ---------- | ------------------------------ |
@@ -51,7 +51,7 @@ extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :shipping_day (include ActiveHash::Associations, has_many :items)
 
 ---
-## orders Table
+## orders table
 
 | Column | Type       | Options                        |
 | ------ | ---------- | ------------------------------ |
@@ -65,7 +65,7 @@ belongs_to :user
 belongs_to :item
 has_one :address
 ---
-## addresses Table
+## addresses table
 
 | Column        | Type       | Options                        |
 | ------------- | ---------- | ------------------------------ |
@@ -74,7 +74,7 @@ has_one :address
 | city          | string     | null: false                    |
 | block         | string     | null: false                    |
 | building_name | string     |                                |
-| phone_number  | string     | null:false                     |
+| phone_number  | string     | null: false                     |
 | order         | references | null: false, foreign_key: true |
 
 

@@ -11,7 +11,7 @@
 | encrypted_password | string  | null: false               |
 | first_name_kanji   | string  | null: false               |
 | last_name_kanji    | string  | null: false               |
-| last_name_kana     | string  | null: false               |
+| first_name_kana    | string  | null: false               |
 | last_name_kana     | string  | null: false               |
 | birth_day          | date    | null: false               |
 
@@ -74,7 +74,7 @@ has_one :address
 | city          | string     | null: false                    |
 | block         | string     | null: false                    |
 | building_name | string     |                                |
-| phone_number  | string     | null: false                     |
+| phone_number  | string     | null: false                    |
 | order         | references | null: false, foreign_key: true |
 
 

@@ -4,16 +4,16 @@
 ---
 ## users Tabel
 
-| Column           | Type    | Options                   |
-| ---------------- | ------- | ------------------------- |
-| nickname         | string  | null: false               |
-| email            | string  | null: false, unique: true |
-| password         | string  | null: false, format       |
-| first_name_kanji | string  | null: false               |
-| last_name_kanji  | string  | null: false               |
-| last_name_kana   | string  | null: false               |
-| last_name_kana   | string  | null: false               |
-| birth_day        | date    | null: false               |
+| Column             | Type    | Options                   |
+| ------------------ | ------- | ------------------------- |
+| nickname           | string  | null: false               |
+| email              | string  | null: false, unique: true |
+| encrypted_password | string  | null: false               |
+| first_name_kanji   | string  | null: false               |
+| last_name_kanji    | string  | null: false               |
+| last_name_kana     | string  | null: false               |
+| last_name_kana     | string  | null: false               |
+| birth_day          | date    | null: false               |
 
 
 ### Association
@@ -24,31 +24,31 @@ has_many: orders
 ---
 ## items Table
 
-| Column        | Type       | Options                        |
-| ------------- | ---------- | ------------------------------ |
-| name          | string     | null: false, length:maximum    |
-| description   | text       | null: false, length:maximum    |
-| category_id   | integer    | null: false, ActiveHash        | 
-| status_id     | integer    | null: false, ActiveHash        |
-| burden_id     | integer    | null: false, ActiveHash        |
-| prefecture_id | integer    | null: false, ActiveHash        |
-| day_id        | integer    | null: false, ActiveHash        |
-| price         | integer    | null: false, format            |
-| user          | references | null: false, foreign_key: true |
+| Column          | Type       | Options                        |
+| --------------- | ---------- | ------------------------------ |
+| name            | string     | null: false, length:maximum    |
+| description     | text       | null: false, length:maximum    |
+| category_id     | integer    | null: false, ActiveHash        | 
+| status_id       | integer    | null: false, ActiveHash        |
+| burden_id       | integer    | null: false, ActiveHash        |
+| prefecture_id   | integer    | null: false, ActiveHash        |
+| shipping_day_id | integer    | null: false, ActiveHash        |
+| price           | integer    | null: false                    |
+| user            | references | null: false, foreign_key: true |
 
 
 ### Association
 
 belongs_to :user
 has_one_attached :image (ActiveStorage, NOTNULL)
-has_one :order, dependent: :destroy
+has_one :order
 
 extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :category (include ActiveHash::Associations, has_many :items)
   belongs_to :status (include ActiveHash::Associations, has_many :items)
   belongs_to :burden (include ActiveHash::Associations, has_many :items)
   belongs_to :prefecture (include ActiveHash::Associations, has_many :items, address)
-  belongs_to :day (include ActiveHash::Associations, has_many :items)
+  belongs_to :shipping_day (include ActiveHash::Associations, has_many :items)
 
 ---
 ## orders Table
@@ -62,26 +62,25 @@ extend ActiveHash::Associations::ActiveRecordExtensions
 ### Association
 
 belongs_to :user
-has_one :item
-has_one :address, dependent: :destroy
-
+belongs_to :item
+has_one :address
 ---
-## addresses Tabel
+## addresses Table
 
 | Column        | Type       | Options                        |
 | ------------- | ---------- | ------------------------------ |
-| postal_code   | string     | null: false, format            |
+| postal_code   | string     | null: false                    |
 | prefecture_id | integer    | null: false, ActiveHash        |
 | city          | string     | null: false                    |
 | block         | string     | null: false                    |
 | building_name | string     |                                |
-| phone_number  | string     | null:false, format             |
+| phone_number  | string     | null:false                     |
 | order         | references | null: false, foreign_key: true |
 
 
 ### Association
 
-has_one :order
+belongs_to :order
 extend ActiveHash::Associations::ActiveRecordExtensions
 belongs_to :prefecture (include ActiveHash::Associations, has_many :items, address)
 

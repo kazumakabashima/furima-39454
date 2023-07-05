@@ -9,4 +9,7 @@ class Item < ApplicationRecord
   belongs_to :burden
   belongs_to :prefecture
   belongs_to :shipping_day 
+
+  #ジャンルの選択が「---」の時は保存できないようにする
+  validates :genre_id numericality: { other_than: 1 } 
 end

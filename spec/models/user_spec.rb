@@ -25,12 +25,19 @@ RSpec.describe User, type: :model do
         @user.email = ''
         @user.valid?
         expect(@user.errors.full_messages).to include("Email can't be blank")
-      end
+      end    
       it 'email: @, 必須' do
         @user.email = "test.mail.address"
         @user.valid?
         expect(@user.errors.full_messages).to include("Email is invalid")
       end
+      it 'email: 重複' do
+        existing_user = FactoryBot.create(:user, email: 'existing@example.com')
+        @user.email = 'existing@example.com'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Email has already been taken')
+      end
+      
       # password
       it 'password: 必須' do
         @user.password = ''

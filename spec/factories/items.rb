@@ -1,14 +1,16 @@
 FactoryBot.define do
   factory :item do
-    image           { "テストイメージ" }
     name            { Faker::Name.initials(number:2)}
     description     { Faker::Lorem.sentence }
-    category_id     { Faker::Number.number }
-    status_id       { Faker::Number.number }
-    burden_id       { Faker::Number.number }
-    prefecture_id   { Faker::Number.number }
-    shipping_day_id { Faker::Number.number }
-    price           { Faker::Number.number }
-    user_id         { Faker::Number.number }
+    category_id     { 2}
+    status_id       { 2}
+    burden_id       { 2}
+    prefecture_id   { 2}
+    shipping_day_id { 2}
+    price           { 500}
+    user_id         { 1}
+    after(:build) do |message|
+      message.image.attach(io: File.open('public/images/test_image.png'), filename: 'test_image.png')
+    end
   end
 end

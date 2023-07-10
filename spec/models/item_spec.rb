@@ -35,8 +35,18 @@ RSpec.describe Item, type: :request do
         @item.valid?
         expect(@item.errors.full_messages).to include("Category can't be blank")
       end
+      it 'カテゴリー: 空白（１）' do
+        @item. category_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Category can't be blank")
+      end
       it 'ステータス: 必須' do
         @item. status_id = ''
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Status can't be blank")
+      end
+      it 'ステータス: 空白（１）' do
+        @item. status_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Status can't be blank")
       end
@@ -45,13 +55,28 @@ RSpec.describe Item, type: :request do
         @item.valid?
         expect(@item.errors.full_messages).to include("Burden can't be blank")
       end
+      it '配送料: 空白（１）' do
+        @item. burden_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Burden can't be blank")
+      end
       it '地域: 必須' do
         @item. prefecture_id = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("Prefecture can't be blank")
       end
+      it '地域: 空白（１）' do
+        @item. prefecture_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Prefecture can't be blank")
+      end
       it '日数: 必須' do
         @item. shipping_day_id = ''
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Shipping day can't be blank")
+      end
+      it '日数: 空白（１）' do
+        @item. shipping_day_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Shipping day can't be blank")
       end
@@ -99,6 +124,11 @@ RSpec.describe Item, type: :request do
       @item.price = "$%^&*"
       @item.valid?
       expect(@item.errors.full_messages).to include("Price is not a number")
+      end
+      it "userが存在しなければ登録できない" do
+      @item.user = nil
+      @item.valid?
+      expect(@item.errors.full_messages).to include('User must exist')
       end
     end
 

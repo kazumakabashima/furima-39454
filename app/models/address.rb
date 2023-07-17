@@ -3,14 +3,12 @@ class Address < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :prefecture (include ActiveHash::Associations, has_many :items, address)
 
-  
-  # 配送先の住所情報も購入の都度入力させること。
-  # 郵便番号が必須であること。
-  # 郵便番号は、「3桁ハイフン4桁」の半角文字列のみ保存可能なこと（良い例：123-4567　良くない例：1234567）。
-  # 都道府県が必須であること。
-  # 市区町村が必須であること。
-  # 番地が必須であること。
-  # 建物名は任意であること。
-  # 電話番号が必須であること。
-  # 電話番号は、10桁以上11桁以内の半角数値のみ保存可能なこと（良い例：09012345678　良くない例：090-1234-5678）。
+  with_options presence :true do
+    validates :postal_code, format: {with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Include hyphen(-)"}
+    validates :city 
+    validates :block
+    validates :phone_number, format: { with: /\A\d{10,11}\z/, message: "is invalid. Input half-width characters."},
+  end
+
+  validates :prefecture_id,   numericality: { other_than: 1 , message: "can't be blank" } 
 end

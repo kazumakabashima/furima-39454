@@ -23,7 +23,7 @@ class OrdersController < ApplicationController
 
   private
   def order_params
-    params.require(:order_address).permit(:item_id).merge(user_id: current_user.id)
+    params.require(:order_address).permit(:postal_code, :prefecture_id, :city, :block, :building_name, :phone_number).merge(item_id: params[:item_id], user_id: current_user.id)
   end
 
   def move_to_index

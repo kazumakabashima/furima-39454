@@ -2,7 +2,7 @@ class OrdersController < ApplicationController
   before_action :authenticate_user!
   before_action :find_item, only: [:index, :create]
   before_action :move_to_index, only: [:index, :create]
-  before_action :set_gon_public_key, only: [:index]
+  before_action :set_gon_public_key, only: [:index, :create]
 
   def index
     @order_address = OrderAddress.new

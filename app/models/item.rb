@@ -18,10 +18,10 @@ class Item < ApplicationRecord
   belongs_to :shipping_day 
 
   #ジャンルの選択が「---」の時は保存できないようにする
-  validates :category_id,     numericality: { other_than: 1 , message: "can't be blank" } 
-  validates :status_id,       numericality: { other_than: 1 , message: "can't be blank" } 
-  validates :burden_id,       numericality: { other_than: 1 , message: "can't be blank" } 
-  validates :prefecture_id,   numericality: { other_than: 1 , message: "can't be blank" } 
-  validates :shipping_day_id, numericality: { other_than: 1 , message: "can't be blank" } 
+  validates :category_id,     numericality: { other_than: 1 , message: "を入力してください" } 
+  validates :status_id,       numericality: { other_than: 1 , message: "を入力してください" } 
+  validates :burden_id,       numericality: { other_than: 1 , message: "を入力してください" } 
+  validates :prefecture_id,   numericality: { other_than: 1 , message: "を入力してください" } 
+  validates :shipping_day_id, numericality: { other_than: 1 , message: "を入力してください" } 
 
 end
